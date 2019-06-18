@@ -1,6 +1,6 @@
 # Open Shelf: A Book Wiki
 
-**Author**: Evan Brecht-Curry and Lillian Gales
+**Author**: Joanna Arroyo and Sara Haynes
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
@@ -18,7 +18,29 @@ Libraries: PostgresSQL, EJS, superagent
 Day 1:
 Ability to search the Google Books API and render top 10 search results on that page
 
+***Number and name of feature:*** 1. I want my application to load quickly so that I have an enjoyable experience
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 10:00
+
+Finish time: 11:00
+
+Actual time needed to complete: 1 hour  
+
+***Number and name of feature:*** 2. I want to search the Google Books API so that I can view the results of my search
+
+Estimate of time needed to complete: 30 minutes
+
+Start time: 11:30
+
+Finish time: 12:00
+
+Actual time needed to complete: 30 minutes
+
 
 
 ## Credits and Collaborations
+
+### Made with a MIT License
 
