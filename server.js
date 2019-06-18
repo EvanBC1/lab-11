@@ -33,9 +33,20 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 // Helper Function
 
 function Book(info){
-  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
-  this.title = info.title || 'No title available';
-  this.authors = info.authors || 'No author available';
+  this.image = 'https://i.imgur.com/J5LVHEL.jpg';
+  this.title = info.volumeInfo.title || 'No title available';
+  this.authors = info.volumeInfo.authors || 'No author available';
+  this.url = (security(info.selfLink)) || 'No link available';
+}
+
+function security(url){
+  let regex = /http:/;
+  if(regex.test(url)){
+    let newURL = url.replace('http:', 'https:');
+    return newURL;
+  } else {
+    return url;
+  }
 }
 
 function newSearch(request, response) {
@@ -47,17 +58,16 @@ function createSearch (request, response){
 
   console.log('request body', request.body);
   console.log('actual search', request.body.search);
-  
+
   if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`}
   if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`}
 
   superagent.get(url)
-    .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
+    .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult)))
     .then(results => response.render('pages/searches/show', {searchResults : results}))
     .catch(error => handleError(error, response));
 
 }
-
 
 function handleError (error, response){
   console.error(error);

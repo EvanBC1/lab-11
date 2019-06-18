@@ -10,8 +10,10 @@
   <h1>Search Results</h1>
   <ul>
     <% for (let i = 0; i < 10; i++){ %>
+      <img src="<%= searchResults[i].image %>" alt="">
       <li><%= searchResults[i].title %></li>
       <li><%= searchResults[i].authors %></li>
+      <li><%= searchResults[i].url %></li>
       <br>
     <% }%>
   </ul>
