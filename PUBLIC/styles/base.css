@@ -1,0 +1,9 @@
+body {
+    margin: 0 auto;
+    width: 960px;
+    color: red;
+    background: rgb(7, 212, 195);
+}
+h1 {
+    color: red;
+}
