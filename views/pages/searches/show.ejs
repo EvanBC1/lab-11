@@ -4,17 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/icons.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/modules.css">
+  <link rel="stylesheet" href="styles/base.css">
   <title>Search Results</title>
 </head>
 <body>
   <h1>Search Results</h1>
+
   <ul>
     <% for (let i = 0; i < 10; i++){ %>
+    <div class="books">
       <img src="<%= searchResults[i].image %>" alt="">
-      <li><%= searchResults[i].title %></li>
+      <li class="title"><%= searchResults[i].title %></li>
       <li><%= searchResults[i].authors %></li>
-      <li><%= searchResults[i].url %></li>
-      <br>
+      <!-- <li><%= searchResults[i].url %></li> -->
+      <li class="description"><%= searchResults[i].description %></li>
+    </div>
     <% }%>
   </ul>
 </body>

@@ -36,6 +36,7 @@ function Book(info){
   this.image = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = info.volumeInfo.title || 'No title available';
   this.authors = info.volumeInfo.authors || 'No author available';
+  this.description = info.volumeInfo.description || 'No description available';
   this.url = (security(info.selfLink)) || 'No link available';
 }
 
