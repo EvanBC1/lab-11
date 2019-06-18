@@ -31,6 +31,13 @@ app.get('*', (request, response) => response.status(404).send('This route really
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // Helper Function
+
+function Book(info){
+  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+  this.title = info.title || 'No title available';
+  this.authors = info.authors || 'No author available';
+}
+
 function newSearch(request, response) {
   response.render('pages/index');
 }
@@ -38,24 +45,19 @@ function newSearch(request, response) {
 function createSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-  console.log('hello!')
-
-  console.log(request.body);
-  console.log(request.body.search);
+  console.log('request body', request.body);
+  console.log('actual search', request.body.search);
   
   if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`}
   if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`}
 
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-    // .then(results => response.render('pages/searches/show', {searchResults : results}))
+    .then(results => response.render('pages/searches/show', {searchResults : results}))
     .catch(error => handleError(error, response));
 
 }
 
-// function Book(bookInfo){
-//   this.title = 
-// }
 
 function handleError (error, response){
   console.error(error);
