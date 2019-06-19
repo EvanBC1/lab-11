@@ -7,7 +7,8 @@
 Open shelf is a full stack application for a book list. Features include the ability to seach the Google Books API, add books to a database, and then render these books from a PostgresSQL database. 
 
 ## Getting Started
-Heroku link:
+Heroku link:https://lab-11-eal.herokuapp.com/
+Database link:
 
 ## Architecture
 Languages: JavaScript, HTML & CSS

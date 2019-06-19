@@ -13,18 +13,28 @@
 </head>
 <body>
     <main>
-      <h4>Search by Title or Author</h4>
-      <form action="/searches" method="post">
-        <input type="text" name="search" placeholder="Enter a title or author" required>
-        gi
-        <fieldset>
-          <label for="author">
-            <span>Author</span>
-            <input type="radio" name="search" value="author" required>
-          </label>
-        </fieldset>
-        <button type="submit">Search the Google Books API</button>
-      </form>
+      <h4>Favorite Books</h4>
+      <ul>
+        <% favorite.forEach (bookItem => { %>
+          <img src=<%=bookItem.image_url%> alt="">
+          <li class="title"><%= bookItem.title %></li>
+          <li><%= bookItem.authors %></li>
+          <li class="description"><%= bookItem.description %></li>
+        <% }) %>
+
+
+
+            <!-- <% favorite.forEach(bookItem => { %>
+              <li class="book-item" data-id="<%= favorite.id %>">
+                
+                <h4>Task: <%= bookItem.title %></h4>
+                <p><%= bookItem.authors %></p>
+              
+                
+              </li>
+            <% }) %> -->
+      </ul>
     </main>
   </body>
 </html>
+

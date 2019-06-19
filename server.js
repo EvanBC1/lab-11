@@ -4,15 +4,18 @@
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
+require('dotenv').config();
 
 //Application Setup
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const DATABASE_URL = process.env.DATABASE_URL;
+
+console.log(DATABASE_URL);
 
 // SQL Database Setup
 const client = new pg.Client(DATABASE_URL);
-client.connection();
+client.connect();
 client.on('error', error => console.error(error));
 
 //Application Middleware
@@ -24,7 +27,8 @@ app.set('view engine', 'ejs');
 
 //API routes
 // Render the search form
-app.get('/', newSearch);
+app.get('/search', newSearch);
+app.get('/', displayFavorites);
 
 //create a new search to the google API
 // app.post is meant to copy something
@@ -61,7 +65,7 @@ function security(url){
 }
 
 function newSearch(request, response) {
-  response.render('pages/index');
+  response.render('pages/searches/searches-new');
 }
 
 function createSearch (request, response){
@@ -83,9 +87,18 @@ function createSearch (request, response){
 
 }
 
-// function cacheBooks(request, client) {
-//   const insertSQL = `INSERT INTO`
-// }
+function displayFavorites(request, response) {
+  console.log('params', request.params);
+
+  let SQL = `SELECT * FROM books`;
+
+  return client.query(SQL)
+    .then(results => {
+      // let favorites = results.rows[0]
+      console.log('!!!!!!!!!', results.rows);
+      response.render('pages/index', {favorite: results.rows});
+    })
+}
 
 function handleError (error, response){
   console.error(error);
