@@ -27,7 +27,9 @@ app.set('view engine', 'ejs');
 app.get('/', newSearch);
 
 //create a new search to the google API
+// app.post is meant to copy something
 app.post('/searches', createSearch);
+
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -37,12 +39,15 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 // Helper Function
 
 function Book(info){
-  this.image = 'https://i.imgur.com/J5LVHEL.jpg';
+  // let httpRegex = /^(http:\/\/)/g
+  const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
+  this.image = info.volumeInfo.imageLinks.thumbnail || placeholderImage;
   this.title = info.volumeInfo.title || 'No title available';
   this.authors = info.volumeInfo.authors || 'No author available';
   this.description = info.volumeInfo.description || 'No description available';
   this.url = (security(info.selfLink)) || 'No link available';
 }
+
 
 //securing HTTP
 function security(url){
@@ -65,12 +70,15 @@ function createSearch (request, response){
   console.log('request body', request.body);
   console.log('actual search', request.body.search);
 
+
+
   if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`}
   if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`}
 
+  
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult)))
-    .then(results => response.render('pages/searches/show', {searchResults : results}))
+    .then(apiResponse => response.render('pages/searches/show', {searchResults : apiResponse }))
     .catch(error => handleError(error, response));
 
 }
