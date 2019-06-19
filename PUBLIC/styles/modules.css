@@ -1,5 +1,8 @@
 
-
+body {
+  width: 480px;
+  margin: 0 auto;
+}
 .books {
   border: 1px solid black;
   box-shadow: 3px 3px 5px black;
