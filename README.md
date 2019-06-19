@@ -22,3 +22,12 @@ Ability to search the Google Books API and render top 10 search results on that 
 
 ## Credits and Collaborations
 
+Number and name of feature: Day 2 Feature 1 - Saved books
+
+Estimate of time needed to complete: 2hr
+
+Start time: 9:50am
+
+Finish time: _____
+
+Actual time needed to complete: _____

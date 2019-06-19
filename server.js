@@ -2,11 +2,18 @@
 
 // Application Dependencies
 const express = require('express');
-const superagent = require('superagent')
+const superagent = require('superagent');
+const pg = require('pg');
 
 //Application Setup
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DATABASE_URL = process.env.DATABASE_URL;
+
+// SQL Database Setup
+const client = new pg.Client(DATABASE_URL);
+client.connection();
+client.on('error', error => console.error(error));
 
 //Application Middleware
 app.use(express.urlencoded({extended:true}));
@@ -23,9 +30,6 @@ app.get('/', newSearch);
 // app.post is meant to copy something
 app.post('/searches', createSearch);
 
-// Testing
-// get though of as a read - don't make any changes
-app.get('/hello')
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -44,9 +48,8 @@ function Book(info){
   this.url = (security(info.selfLink)) || 'No link available';
 }
 
-//info.imageLinks.smallThumbnail ||
-// ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
 
+//securing HTTP
 function security(url){
   let regex = /http:/;
   if(regex.test(url)){
@@ -79,6 +82,10 @@ function createSearch (request, response){
     .catch(error => handleError(error, response));
 
 }
+
+// function cacheBooks(request, client) {
+//   const insertSQL = `INSERT INTO`
+// }
 
 function handleError (error, response){
   console.error(error);
