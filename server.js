@@ -2,7 +2,11 @@
 
 // Application Dependencies
 const express = require('express');
-const superagent = require('superagent')
+const superagent = require('superagent');
+const pg = require('pg');
+
+// Environment Variables
+require('dotenv').config();
 
 //Application Setup
 const app = express();
@@ -10,20 +14,29 @@ const PORT = process.env.PORT || 3000;
 
 //Application Middleware
 app.use(express.urlencoded({extended:true}));
-app.use(express.static('public'));
+app.use(express.static('./public'));
+
+// Database Setup
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+client.on('error', err => console.error(err));
 
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
 //API routes
-// Render the search form
-app.get('/', newSearch);
+// Render saved books from database
+app.get('/', (request, response) => {
+  let SQL = `SELECT * FROM books`;
+  return client.query(SQL)
+    .then (results => console.log(results))
+    .then(results => {
+      response.render('./pages/index', {results: results})
+    })
+});
 
 //create a new search to the google API
 app.post('/searches', createSearch);
-
-// Testing
-app.get('/hello')
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -42,9 +55,9 @@ function Book(info){
   this.description = info.description ? info.description : 'No description available';
 }
 
-function newSearch(request, response) {
-  response.render('pages/index');
-}
+// function newSearch(request, response) {
+//   response.render('pages/index');
+// }
 
 function createSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';

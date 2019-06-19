@@ -12,7 +12,17 @@
     <link rel="stylesheet" href="styles/base.css">
 </head>
 <body>
-    <main>
+    <ul>
+        <% for (let i = 0; i < results.rows.length; i++){ %>
+        <div class="books">
+          <img src="<%= results.rows[i].image_url %>" alt="">
+          <li class="title"><%= results.rows[i].title %></li>
+          <li><%= results.rows[i].authors %></li>
+          <li class="description"><%= results.rows[i].description %></li>
+        </div>
+        <% }%>
+      </ul>
+    <!-- <main>
       <h4>Search by Title or Author</h4>
       <form action="/searches" method="post">
         <input type="text" name="search" placeholder="Enter a title or author" required>
@@ -30,6 +40,6 @@
         </fieldset>
         <button type="submit">Search the Google Books API</button>
       </form>
-    </main>
+    </main> -->
   </body>
 </html>
