@@ -30,8 +30,14 @@ app.get('/', (request, response) => {
   let SQL = `SELECT * FROM books`;
   return client.query(SQL)
     .then(results => {
-      response.render('pages/index', {resultsBanana: results.rows});
+      if(results.rows.rowCount === 0) {
+        response.render('pages/searches/new')
+      } else {
+        response.render('pages/index', {books: results.rows})
+      }
     })
+    .catch(err => handleError(err, response))
+
 });
 
 //Create search page

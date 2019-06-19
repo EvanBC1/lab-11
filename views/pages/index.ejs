@@ -12,15 +12,18 @@
     <link rel="stylesheet" href="styles/base.css">
 </head>
 <body>
+
+    <h3>Saved Books</h3>
+    <p>Number of books: <%= books.length %> </p>
     <ul>
-        <% resultsBanana.forEach(book => {%>
-          <li class="book-item" data-id="<%=book.id%>">
-            <h4>Title: <%= book.title %></h4>
-            <p>Author: <%= book.author %></p>
-            <!-- VIEW DETAILS NEEDS MORE WORK -->
-            <a href="books/">View Details</a>
-          </li>
-        <% }) %>
+        <% books.forEach(book => {%>
+        <div class="books">
+          <img src="<%= book.image_url %>" alt="">
+          <li class="title"><%= book.title %></li>
+          <li><%= book.authors %></li>
+          <li class="description"><%= book.description %></li>
+        </div>
+        <% })%>
       </ul>
     <!-- <main>
       <h4>Search by Title or Author</h4>

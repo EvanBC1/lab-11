@@ -15,14 +15,16 @@
   <h1>Search Results</h1>
 
   <ul>
-    <% for (let i = 0; i < 10; i++){ %>
+   
+    <%  searchResults.forEach(book => { %>
     <div class="books">
-      <img src="<%= searchResults[i].image_url %>" alt="">
-      <li class="title"><%= searchResults[i].title %></li>
-      <li><%= searchResults[i].authors %></li>
-      <li class="description"><%= searchResults[i].description %></li>
+      <img src="<%= book.image_url %>" alt="">
+      <li class="title"><%= book.title %></li>
+      <li><%= book.authors %></li>
+      <li class="description"><%= book.description %></li>
     </div>
-    <% }%>
+    <% })%>
   </ul>
 </body>
 </html>
+
