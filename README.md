@@ -18,7 +18,16 @@ Libraries: PostgresSQL, EJS, superagent
 Day 1:
 Ability to search the Google Books API and render top 10 search results on that page
 
-
+## book Schema
+books (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255),
+  author VARCHAR(255),
+  isbn VARCHAR(255),
+  image_url VARCHAR(255),
+  description VARCHAR(255),
+  bookshelf VARCHAR(255)
+);
 
 ## Credits and Collaborations
 
