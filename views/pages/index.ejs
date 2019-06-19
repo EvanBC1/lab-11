@@ -13,14 +13,14 @@
 </head>
 <body>
     <ul>
-        <% for (let i = 0; i < results.rows.length; i++){ %>
-        <div class="books">
-          <img src="<%= results.rows[i].image_url %>" alt="">
-          <li class="title"><%= results.rows[i].title %></li>
-          <li><%= results.rows[i].authors %></li>
-          <li class="description"><%= results.rows[i].description %></li>
-        </div>
-        <% }%>
+        <% resultsBanana.forEach(book => {%>
+          <li class="book-item" data-id="<%=book.id%>">
+            <h4>Title: <%= book.title %></h4>
+            <p>Author: <%= book.author %></p>
+            <!-- VIEW DETAILS NEEDS MORE WORK -->
+            <a href="books/">View Details</a>
+          </li>
+        <% }) %>
       </ul>
     <!-- <main>
       <h4>Search by Title or Author</h4>

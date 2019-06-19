@@ -29,14 +29,24 @@ app.set('view engine', 'ejs');
 app.get('/', (request, response) => {
   let SQL = `SELECT * FROM books`;
   return client.query(SQL)
-    .then (results => console.log(results))
     .then(results => {
-      response.render('./pages/index', {results: results})
+      response.render('pages/index', {resultsBanana: results.rows});
     })
 });
 
+//Create search page
+app.get('/new', newSearch);
+
 //create a new search to the google API
 app.post('/searches', createSearch);
+
+//Create book details page
+// app.get('/books/:id', (request, response) => {
+//   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
+//   return client.query(SQL)
+//     .then(response => response.render('pages/searches/detail', {bookDetail: result.rows[0]})) // CHECK THIS
+//     .catch(error => console.error(error));
+// });
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -55,9 +65,9 @@ function Book(info){
   this.description = info.description ? info.description : 'No description available';
 }
 
-// function newSearch(request, response) {
-//   response.render('pages/index');
-// }
+function newSearch(request, response) {
+  response.render('pages/searches/new');
+}
 
 function createSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
