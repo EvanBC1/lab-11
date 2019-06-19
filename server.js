@@ -42,16 +42,6 @@ function Book(info){
   this.description = info.description ? info.description : 'No description available';
 }
 
-// function security(url){
-//   let regex = /http:/;
-//   if(regex.test(url)){
-//     let newURL = url.replace('http:', 'https:');
-//     return newURL;
-//   } else {
-//     return url;
-//   }
-// }
-
 function newSearch(request, response) {
   response.render('pages/index');
 }

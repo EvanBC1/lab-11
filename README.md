@@ -36,7 +36,17 @@ Start time: 11:30
 
 Finish time: 12:00
 
-Actual time needed to complete: 30 minutes
+Actual time needed to complete: 30 minutes  
+
+## Day 2
+Number and name of feature: 1. As a user, I want all of my saved books to be displayed on the home page so that I can view all of the books from my collection in a single view.
+Estimate of time needed to complete: 30 minutes
+
+Start time: 10:30
+
+Finish time: _____
+
+Actual time needed to complete: _____
 
 
 
