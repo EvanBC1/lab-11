@@ -29,11 +29,17 @@ app.set('view engine', 'ejs');
 app.get('/', (request, response) => {
   let SQL = `SELECT * FROM books`;
   return client.query(SQL)
-    .then (results => console.log(results))
     .then(results => {
-      response.render('./pages/index', {results: results})
+      if(results.rows.rowCount === 0) {
+        response.render('pages/searches/new')
+      } else {
+        response.render('pages/index', {books: results.rows})
+      }
     })
+    .catch(err => handleError(err, response))
+
 });
+
 
 //create a new search to the google API
 app.post('/searches', createSearch);

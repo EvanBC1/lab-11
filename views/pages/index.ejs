@@ -12,15 +12,18 @@
     <link rel="stylesheet" href="styles/base.css">
 </head>
 <body>
+
+    <h3>Saved Books</h3>
+    <p>Number of books: <%= books.length %> </p>
     <ul>
-        <% for (let i = 0; i < results.rows.length; i++){ %>
+        <% books.forEach(book => {%>
         <div class="books">
-          <img src="<%= results.rows[i].image_url %>" alt="">
-          <li class="title"><%= results.rows[i].title %></li>
-          <li><%= results.rows[i].authors %></li>
-          <li class="description"><%= results.rows[i].description %></li>
+          <img src="<%= book.image_url %>" alt="">
+          <li class="title"><%= book.title %></li>
+          <li><%= book.authors %></li>
+          <li class="description"><%= book.description %></li>
         </div>
-        <% }%>
+        <% })%>
       </ul>
     <!-- <main>
       <h4>Search by Title or Author</h4>
