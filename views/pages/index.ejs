@@ -13,8 +13,9 @@
 </head>
 <body>
     <main>
-      <h4>Favorite Books</h4>
+      <h4>Saved Books</h4>
       <ul>
+        <p><%=favorite.length%> books on shelf</p>
         <% favorite.forEach (bookItem => { %>
           <img src=<%=bookItem.image_url%> alt="">
           <li class="title"><%= bookItem.title %></li>

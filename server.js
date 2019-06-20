@@ -1,9 +1,12 @@
 'use strict'
 
 // Application Dependencies
+// express is a framework that gives access to routes that we use to access our services
 const express = require('express');
+// superagent handles all requests
 const superagent = require('superagent');
 const pg = require('pg');
+// add our environment configuration
 require('dotenv').config();
 
 //Application Setup
@@ -19,6 +22,7 @@ client.connect();
 client.on('error', error => console.error(error));
 
 //Application Middleware
+//handles/parses our request body so we can access our request.body
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 
@@ -29,9 +33,7 @@ app.set('view engine', 'ejs');
 // Render the search form
 app.get('/search', newSearch);
 app.get('/', displayFavorites);
-
-//create a new search to the google API
-// app.post is meant to copy something
+// app.post is meant to create and mutate something
 app.post('/searches', createSearch);
 
 
@@ -85,6 +87,21 @@ function createSearch (request, response){
     .then(apiResponse => response.render('pages/searches/show', {searchResults : apiResponse }))
     .catch(error => handleError(error, response));
 
+}
+
+// retrieving books from db
+function getBooks(request, response){
+  let SQL = 'SELECT * FROM books'
+
+  return client.query(SQL)
+    .then(results => {
+      if (results.rows.rowCount === 0){
+        response.render('pages/searches-new')
+      } else {
+        resizeBy.render('pages/index', {books: results.rows});
+      }
+    })
+    .catch(error => handleError(error, response));
 }
 
 function displayFavorites(request, response) {

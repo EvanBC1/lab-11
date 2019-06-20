@@ -38,6 +38,16 @@ Estimate of time needed to complete: 2hr
 
 Start time: 9:50am
 
+Finish time: 1:30pm
+
+Actual time needed to complete: 3:40
+
+Number and name of feature: Day 2 Feature 2 - View Book Details 
+
+Estimate of time needed to complete: 2hrs
+
+Start time: _____
+
 Finish time: _____
 
 Actual time needed to complete: _____
