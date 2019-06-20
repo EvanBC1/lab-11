@@ -1,12 +1,12 @@
-<form class="hide-form" action="/" method="post">
+<form class="hide-form" action="/books" method="post">
 
-    <input type="text" value="<%= book.title %>"/>
-    <input type="text" value="<%= book.authors %>"/>
-    <input type="text" value="<%= book.isbn %>"/>
-    <input type="text" value="<%= book.image_url %>"/>
-    <input type="text" value="<%= book.description %>"/>
-    <input type="text" value="Enter a Bookshelf Name" required/>
-    <button type="submit">Add to Database</button>
+    <input name="title" type="text" value="<%= book.title %>"/>
+    <input name="authors" type="text" value="<%= book.authors %>"/>
+    <input name="isbn" type="text" value="<%= book.isbn %>"/>
+    <input name="image_url" type="text" value="<%= book.image_url %>"/>
+    <input name="description" type="text" value="<%= book.description %>"/>
+    <input name="bookshelf" type="text" value="" required/>
+    <button type="submit">Add To Database</button>
     
 
 </form>
