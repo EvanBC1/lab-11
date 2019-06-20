@@ -39,7 +39,8 @@ Finish time: 12:00
 Actual time needed to complete: 30 minutes  
 
 ## Day 2
-Number and name of feature: 1. As a user, I want all of my saved books to be displayed on the home page so that I can view all of the books from my collection in a single view.
+Number and name of feature: 1. As a user, I want all of my saved books to be displayed on the home page so that I can view all of the books from my collection in a single view.  
+
 Estimate of time needed to complete: 1 hour
 
 Start time: 10:30
@@ -50,7 +51,15 @@ Actual time needed to complete: 2 hours
 
 
 ## Day 3
+Number and name of feature: 1. As a user, I want to request information about a single book so that I can view its additional details and share it by URL.  
 
+Estimate of time needed to complete: 1 hour
+
+Start time: 10:00
+
+Finish time: 
+
+Actual time needed to complete: 
 
 
 ## Credits and Collaborations
