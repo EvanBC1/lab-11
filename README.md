@@ -7,7 +7,7 @@
 Open shelf is a full stack application for a book list. Features include the ability to seach the Google Books API, add books to a database, and then render these books from a PostgresSQL database. 
 
 ## Getting Started
-Heroku link:
+Heroku link: https://books-app-jash.herokuapp.com/
 
 ## Architecture
 Languages: JavaScript, HTML & CSS
@@ -40,13 +40,16 @@ Actual time needed to complete: 30 minutes
 
 ## Day 2
 Number and name of feature: 1. As a user, I want all of my saved books to be displayed on the home page so that I can view all of the books from my collection in a single view.
-Estimate of time needed to complete: 30 minutes
+Estimate of time needed to complete: 1 hour
 
 Start time: 10:30
 
-Finish time: _____
+Finish time: 12:30
 
-Actual time needed to complete: _____
+Actual time needed to complete: 2 hours  
+
+
+## Day 3
 
 
 
