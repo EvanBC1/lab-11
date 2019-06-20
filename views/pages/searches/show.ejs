@@ -14,6 +14,7 @@
       <li class="author"><%= book.authors %></li>
       <li class="description"><%= book.description %></li>
       <button type="submit">Select This Book</button>
+      <%- include('form', {book: book}) %>
     </div>
     <% })%>
   </ul>
