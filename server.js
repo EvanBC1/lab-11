@@ -24,21 +24,12 @@ client.on('error', err => console.error(err));
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
-//API routes
-// Render saved books from database
+// API routes
 app.get('/', getBooks);
 app.post('/searches', createSearch);
 app.get('/searches/new', newSearch);
 // app.post('/books', createBook);
-// app.get('/book/:id', getBook);
-
-//Create book details page
-// app.get('/books/:id', (request, response) => {
-//   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
-//   return client.query(SQL)
-//     .then(response => response.render('pages/searches/detail', {bookDetail: result.rows[0]})) // CHECK THIS
-//     .catch(error => console.error(error));
-// });
+app.get('/books/:id', getBook);
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -55,6 +46,7 @@ function Book(info){
   this.isbn = info.industryIdentifiers ? `ISBN ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
   this.image_url = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
+  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
 }
 
 function getBooks(request, response){
@@ -89,8 +81,13 @@ function createSearch (request, response){
     .catch(error => handleError(error, response));
 }
 
-
-
+//Create book details page
+function getBook (request, response){
+  let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
+  return client.query(SQL)
+    .then(result => response.render('pages/books/detail', {bookDetail: result.rows[0]}))
+    .catch(error => handleError(error, response));
+}
 
 function handleError (error, response){
   console.error(error);

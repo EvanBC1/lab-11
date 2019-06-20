@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%- include('../layout/head') %>
+  <%- include('../../layout/head') %>
 </head>
 <body>
+  <%- include('../../layout/header') %>
   <h1>Search Results</h1>
-
   <ul>
-   
     <%  searchResults.forEach(book => { %>
     <div class="books">
       <img src="<%= book.image_url %>" alt="">
       <li class="title"><%= book.title %></li>
       <li><%= book.authors %></li>
       <li class="description"><%= book.description %></li>
+      <button type="submit">Select This Book</button>
     </div>
     <% })%>
   </ul>

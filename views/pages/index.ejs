@@ -4,6 +4,7 @@
     <%- include('../layout/head') %>
 </head>
 <body>
+  <%- include('../layout/header') %>
     <h3>Saved Books</h3>
     <p>Number of books: <%= books.length %> </p>
     <ul>
@@ -12,7 +13,7 @@
           <img src="<%= book.image_url %>" alt="">
           <li class="title"><%= book.title %></li>
           <li><%= book.author %></li>
-          <button type="submit">View Details</button>
+          <button type="submit"><a href="/books/<%= book.id %>">View Details</a></button>
         </div>
         <% })%>
       </ul>
