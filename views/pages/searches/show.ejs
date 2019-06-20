@@ -12,14 +12,13 @@
       <a href="google.com">View Details</a>
       <button type="submit">Select This Book</button>
 
-      <form>
-  
-        <input type="text" name="title" value="title" placeholder="title">
-        <input type="text" name="authors" value="authors" placeholder="author">
-        <textarea name="description" placeholder="description" cols="30" rows="10">description</textarea>
-        <input type="text" name="bookshelf" value="bookshelf" placeholder="bookshelf">
-        <input type="text" name="isbn" value="isbm"  placeholder="ibm">
-        <button type="submit">submit</button>
+      <form action="<%='/' %>" method="post">
+        <input type="text" name="title" value="<%= searchResults[i].title %>" placeholder="title" required> 
+        <input type="text" name="authors" value="<%= searchResults[i].authors %>" placeholder="author" required>
+        <textarea name="description" value="<%= searchResults[i].description %>" placeholder="description" cols="30" rows="10">description</textarea requird>
+        <input type="text" name="bookshelf" value="" placeholder="bookshelf" required>
+        <input type="text" name="isbn" value="<%= searchResults[i].isbn %>"  placeholder="isbn" required>
+        <button type="submit">Add to Favorites</button>
        </form>
     </div>
     <% }%>

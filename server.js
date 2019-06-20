@@ -41,6 +41,9 @@ app.post('/searches', renderSearch);
 app.get('/books/:id', viewFavoritedDetails);
 app.get('/view-details', viewDetails);
 
+// Add book to Favorites
+app.post('/', addFavorites);
+
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
 
@@ -55,6 +58,7 @@ function Book(info){
   this.authors = info.volumeInfo.authors || 'No author available';
   this.description = info.volumeInfo.description || 'No description available';
   this.url = (security(info.selfLink)) || 'No link available';
+  this.isbn = info.volumeInfo.industryIdentifiers[0].identifier || 'No isbn available';
 }
 
 //securing HTTP
@@ -127,6 +131,17 @@ function viewFavoritedDetails (request, response){
 
 function viewDetails(request, response){
   return response.render('pages/searches/view-details')
+}
+
+function addFavorites (request, response) {
+  console.log(request.body);
+  
+  let SQL = `INSERT INTO books(title, authors, isbn, description, bookshelf)`;
+  let values = ['1', '2', '3', '4', '5']
+
+  return client.query(SQL, values)
+    .then(response.redirect('/'))
+    .catch(err => handleError(err, response));
 }
 
 
