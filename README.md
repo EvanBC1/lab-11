@@ -49,8 +49,18 @@ Number and name of feature: Day 2 Feature 2 - View Book Details
 
 Estimate of time needed to complete: 2hrs
 
-Start time: _____
+Start time: 10am
 
-Finish time: _____
+Finish time: 11:15am
 
-Actual time needed to complete: _____
+Actual time needed to complete: 1:15
+
+Number and name of feature: Day 2 Feature 3 - Custom Details 
+
+Estimate of time needed to complete: 2hrs
+
+Start time: 11:23am
+
+Finish time: 
+
+Actual time needed to complete:

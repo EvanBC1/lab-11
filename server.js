@@ -35,10 +35,11 @@ app.get('/search', newSearch);
 app.get('/', displayFavorites);
 
 // app.post is meant to create and mutate something
-app.post('/searches', createSearch);
+app.post('/searches', renderSearch);
 
 //View details
-app.get('/books/:id', viewDetails);
+app.get('/books/:id', viewFavoritedDetails);
+app.get('/view-details', viewDetails);
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -71,7 +72,7 @@ function newSearch(request, response) {
   response.render('pages/searches/searches-new');
 }
 
-function createSearch (request, response){
+function renderSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
   console.log('request body', request.body);
@@ -114,7 +115,7 @@ function displayFavorites(request, response) {
     })
 }
 
-function viewDetails (request, response){
+function viewFavoritedDetails (request, response){
   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
 
   return client.query(SQL)
@@ -122,6 +123,10 @@ function viewDetails (request, response){
       return response.render('pages/books/show', {book: result.rows[0]});
     })
     .catch(err => handleError(err, response));
+}
+
+function viewDetails(request, response){
+  return response.render('pages/searches/view-details')
 }
 
 
