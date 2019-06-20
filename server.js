@@ -26,25 +26,11 @@ app.set('view engine', 'ejs');
 
 //API routes
 // Render saved books from database
-app.get('/', (request, response) => {
-  let SQL = `SELECT * FROM books`;
-  return client.query(SQL)
-    .then(results => {
-      if(results.rows.rowCount === 0) {
-        response.render('pages/searches/new')
-      } else {
-        response.render('pages/index', {books: results.rows})
-      }
-    })
-    .catch(err => handleError(err, response))
-
-});
-
-//Create search page
-app.get('/new', newSearch);
-
-//create a new search to the google API
+app.get('/', getBooks);
 app.post('/searches', createSearch);
+app.get('/searches/new', newSearch);
+// app.post('/books', createBook);
+// app.get('/book/:id', getBook);
 
 //Create book details page
 // app.get('/books/:id', (request, response) => {
@@ -71,13 +57,25 @@ function Book(info){
   this.description = info.description ? info.description : 'No description available';
 }
 
+function getBooks(request, response){
+  let SQL = `SELECT * FROM books`;
+  return client.query(SQL)
+    .then(results => {
+      if(results.rowCount === 0) {
+        response.render('pages/searches/new');
+      } else {
+        response.render('pages/index', {books: results.rows});
+      }
+    })
+    .catch(err => handleError(err, response));
+}
+
 function newSearch(request, response) {
   response.render('pages/searches/new');
 }
 
 function createSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
-
 
   console.log('request body', request.body);
   console.log('actual search', request.body.search);
@@ -86,12 +84,13 @@ function createSearch (request, response){
   if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`}
 
   superagent.get(url)
-    // .then(response => console.log('RESPONSE', response))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', {searchResults : results}))
     .catch(error => handleError(error, response));
-
 }
+
+
+
 
 function handleError (error, response){
   console.error(error);
