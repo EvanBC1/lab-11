@@ -101,7 +101,7 @@ function createBook(request, response){
 function getBook (request, response){
   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
   client.query(SQL) //do not need return here
-    .then(result => response.render('pages/books/detail', {bookDetail: result.rows[0]}))
+    .then(result => response.render('pages/books/show', {book: result.rows[0]}))
     .catch(error => handleError(error, response));
 }
 

@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <%- include('../../layout/head') %>
-  </head>
-<body>
-  <%- include('../../layout/header') %>
-  <section>
-    <img src="<%= bookDetail.image_url %>" alt="">
-    <li class="title"><%= bookDetail.title %></li>
-    <li class="author"><%= bookDetail.author %></li>
-    <li class="description"><%= bookDetail.description %></li>
-    <li class="isbn">ISBN: <%= bookDetail.isbn %></li>
-    <li class="bookshelf">Bookshelf: <%= bookDetail.bookshelf %></li>
-  </section>
-</body>
-</html>
+<section>
+  <img src="<%= book.image_url %>" alt="">
+  <li class="title"><%= book.title %></li>
+  <li class="author"><%= book.author %></li>
+  <li class="description"><%= book.description %></li>
+  <li class="isbn">ISBN: <%= book.isbn %></li>
+  <li class="bookshelf">Bookshelf: <%= book.bookshelf %></li>
+</section>
+
 
