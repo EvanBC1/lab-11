@@ -7,8 +7,13 @@
   background: gray;
   text-align: center;
   padding: 30px 0px 30px 0px;
-  margin: 30px;
+  margin: 0 auto;
   color: black;
+  width: 500px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+ 
+
 }
 
 .title {
@@ -16,9 +21,17 @@
 }
 
 
+h1 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+
 
 li {
-  margin: 10px;
+  font-weight: bold;
+  margin: 12px;
+  padding: 5px;
 }
 
 .description {
