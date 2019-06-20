@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/icons.css">
-  <link rel="stylesheet" href="styles/layout.css">
-  <link rel="stylesheet" href="styles/modules.css">
-  <link rel="stylesheet" href="styles/base.css">
-  <title>Search Results</title>
+  <%- include('../../layout/head') %>
 </head>
 <body>
+  <%- include('../../layout/header') %>
   <h1>Search Results</h1>
-
-  <ul>
-   
+  <ul class="search-results">
     <%  searchResults.forEach(book => { %>
-    <div class="books">
+    <div class="books" data-book-id="<%= book.isbn %>">
       <img src="<%= book.image_url %>" alt="">
       <li class="title"><%= book.title %></li>
-      <li><%= book.authors %></li>
+      <li class="author"><%= book.authors %></li>
       <li class="description"><%= book.description %></li>
+      <button type="submit">Select This Book</button>
     </div>
     <% })%>
   </ul>

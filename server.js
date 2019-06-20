@@ -24,35 +24,12 @@ client.on('error', err => console.error(err));
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
-//API routes
-// Render saved books from database
-app.get('/', (request, response) => {
-  let SQL = `SELECT * FROM books`;
-  return client.query(SQL)
-    .then(results => {
-      if(results.rows.rowCount === 0) {
-        response.render('pages/searches/new')
-      } else {
-        response.render('pages/index', {books: results.rows})
-      }
-    })
-    .catch(err => handleError(err, response))
-
-});
-
-//Create search page
-app.get('/new', newSearch);
-
-//create a new search to the google API
+// API routes
+app.get('/', getBooks);
 app.post('/searches', createSearch);
-
-//Create book details page
-// app.get('/books/:id', (request, response) => {
-//   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
-//   return client.query(SQL)
-//     .then(response => response.render('pages/searches/detail', {bookDetail: result.rows[0]})) // CHECK THIS
-//     .catch(error => console.error(error));
-// });
+app.get('/searches/new', newSearch);
+app.post('/books', createBook);
+app.get('/books/:id', getBook);
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -69,6 +46,20 @@ function Book(info){
   this.isbn = info.industryIdentifiers ? `ISBN ${info.industryIdentifiers[0].identifier}` : 'No ISBN available';
   this.image_url = info.imageLinks ? info.imageLinks.smallThumbnail.replace(httpRegex, 'https://') : placeholderImage;
   this.description = info.description ? info.description : 'No description available';
+  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
+}
+
+function getBooks(request, response){
+  let SQL = `SELECT * FROM books`;
+  return client.query(SQL)
+    .then(results => {
+      if(results.rowCount === 0) {
+        response.render('pages/searches/new');
+      } else {
+        response.render('pages/index', {books: results.rows});
+      }
+    })
+    .catch(err => handleError(err, response));
 }
 
 function newSearch(request, response) {
@@ -78,7 +69,6 @@ function newSearch(request, response) {
 function createSearch (request, response){
   let url = 'https://www.googleapis.com/books/v1/volumes?q=';
 
-
   console.log('request body', request.body);
   console.log('actual search', request.body.search);
 
@@ -86,11 +76,34 @@ function createSearch (request, response){
   if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`}
 
   superagent.get(url)
-    // .then(response => console.log('RESPONSE', response))
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', {searchResults : results}))
     .catch(error => handleError(error, response));
+}
 
+// Add new book to DB and render view
+function createBook(request, response){
+  let {title, author, isbn, image_url, description, bookshelf} = request.body;
+  let SQL = 'INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)';
+  let values = [title, author, isbn, image_url, description, bookshelf];
+
+  return client.query(SQL, values)
+    .then(() => {
+      SQL = 'SELECT * FROM books WHERE isbn=$1;';
+      values = [request.body.isbn];
+      return client.query(SQL, values)
+        .then(result => response.redirect(`/books/${result.rows[0].id}`))
+        .catch(error => handleError(error, response))
+    })
+    .catch(error => handleError(error, response));
+}
+
+// Book details page
+function getBook (request, response){
+  let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
+  client.query(SQL) //do not need return here
+    .then(result => response.render('pages/books/detail', {bookDetail: result.rows[0]}))
+    .catch(error => handleError(error, response));
 }
 
 function handleError (error, response){
