@@ -37,7 +37,6 @@ app.get('*', (request, response) => response.status(404).send('This route really
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // Helper Function
-
 function Book(info){
   let httpRegex = /^(http:\/\/)/g;
   let placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
