@@ -1,0 +1,17 @@
+<%- include('../layout/head') %>
+<body>
+  <h1>Search Results</h1>
+
+  <ul>
+    <div class="books">
+      <img src=<%=searchResults[i].image%> alt="">
+      <li class="title"><%= searchResults[i].title %></li>
+      <li><%= searchResults[i].authors %></li>
+      <li class="description"><%= searchResults[i].description %></li>
+      <li class="isbn"><%= searchResults[i].isbn %></li>
+      <li class="bookshelf"><%= searchResults[i].bookshelf %><li>
+    </div>
+  </ul>
+
+</body>
+</html>

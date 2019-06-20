@@ -1,4 +1,4 @@
-<%- include('./layout/head') %>
+<%- include('../layout/head') %>
 <body>
   <h1>Search Results</h1>
 
@@ -9,7 +9,18 @@
       <li class="title"><%= searchResults[i].title %></li>
       <li><%= searchResults[i].authors %></li>
       <li class="description"><%= searchResults[i].description %></li>
-      <a href="<%= %>">View Details</a>
+      <a href="google.com">View Details</a>
+      <button type="submit">Select This Book</button>
+
+      <form>
+  
+        <input type="text" name="title" value="title" placeholder="title">
+        <input type="text" name="authors" value="authors" placeholder="author">
+        <textarea name="description" placeholder="description" cols="30" rows="10">description</textarea>
+        <input type="text" name="bookshelf" value="bookshelf" placeholder="bookshelf">
+        <input type="text" name="isbn" value="isbm"  placeholder="ibm">
+        <button type="submit">submit</button>
+       </form>
     </div>
     <% }%>
   </ul>
