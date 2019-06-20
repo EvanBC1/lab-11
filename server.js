@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 app.get('/', getBooks);
 app.post('/searches', createSearch);
 app.get('/searches/new', newSearch);
-// app.post('/books', createBook);
+app.post('/books', createBook);
 app.get('/books/:id', getBook);
 
 // Catch all
@@ -81,10 +81,27 @@ function createSearch (request, response){
     .catch(error => handleError(error, response));
 }
 
-//Create book details page
+// Add new book to DB and render view
+function createBook(request, response){
+  let {title, author, isbn, image_url, description, bookshelf} = request.body;
+  let SQL = 'INSERT INTO books (title, author, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6)';
+  let values = [title, author, isbn, image_url, description, bookshelf];
+
+  return client.query(SQL, values)
+    .then(() => {
+      SQL = 'SELECT * FROM books WHERE isbn=$1;';
+      values = [request.body.isbn];
+      return client.query(SQL, values)
+        .then(result => response.redirect(`/books/${result.rows[0].id}`))
+        .catch(error => handleError(error, response))
+    })
+    .catch(error => handleError(error, response));
+}
+
+// Book details page
 function getBook (request, response){
   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
-  return client.query(SQL)
+  client.query(SQL) //do not need return here
     .then(result => response.render('pages/books/detail', {bookDetail: result.rows[0]}))
     .catch(error => handleError(error, response));
 }
