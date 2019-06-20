@@ -28,3 +28,7 @@ li {
   height: 150px;
   overflow: scroll;
 }
+
+.hide-form {
+  display: none;
+}
