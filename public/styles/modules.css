@@ -12,8 +12,6 @@
   width: 500px;
   margin-top: 30px;
   margin-bottom: 30px;
- 
-
 }
 
 .title {
@@ -21,17 +19,19 @@
 }
 
 
-h1 {
-  font-size: 25px;
-  font-weight: bold;
-}
+a {
+  color: whitesmoke; 
+  background-color: rgb(20, 20, 20); 
 
+}
 
 
 li {
   font-weight: bold;
-  margin: 12px;
-  padding: 5px;
+  padding: 10px;
+  font-size: 20px;
+  padding-left: 25px;
+ 
 }
 
 .description {
@@ -45,3 +45,4 @@ li {
 .hide-form {
   display: none;
 }
+
