@@ -56,7 +56,7 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 function Book(info){
   // let httpRegex = /^(http:\/\/)/g
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
-  this.image = info.volumeInfo.imageLinks.thumbnail || placeholderImage;
+  this.image_url = info.volumeInfo.imageLinks.thumbnail || placeholderImage;
   this.title = info.volumeInfo.title || 'No title available';
   this.authors = info.volumeInfo.authors || 'No author available';
   this.description = info.volumeInfo.description || 'No description available';
@@ -138,18 +138,14 @@ function viewDetails(request, response){
 }
 
 function addFavorites (request, response) {
-  console.log(request.body);
-  let {title, author, isbn, image_url, description, bookshelf} = request.body;
-  let SQL = `INSERT INTO books(title, author, isbn, image_url, description, bookshelf) VALUES  ($1, $2, $3, $4, $5, $6); `;
-  let values = [title, author, isbn, image_url, description, bookshelf];
+  console.log('!!!!!',request.body);
+  let {title, authors, isbn, image_url, description, bookshelf} = request.body;
+  let SQL = `INSERT INTO books(title, authors, isbn, image_url, description, bookshelf) VALUES  ($1, $2, $3, $4, $5, $6) RETURNING id;`;
+  let values = [title, authors, isbn, image_url, description, bookshelf];
 
   return client.query(SQL, values)
-    .then(() => {
-      SQL = 'SELECT * FROM "books" WHERE isbn=$1;';
-      values = [request.body.isbn];
-      return client.query(SQL, values)
-        .then(result => response.redirect(`/books/${result.rows[0].id}`))
-        .catch(err => handleError(err, response));
+    .then(result => {
+      response.redirect(`/books/${result.rows[0].id}`) 
     })
     .catch(err => handleError(err, response));
 }
