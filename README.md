@@ -61,6 +61,17 @@ Estimate of time needed to complete: 2hrs
 
 Start time: 11:23am
 
-Finish time: 
+Finish time: 2pm
 
-Actual time needed to complete:
+Actual time needed to complete: 2:30
+
+Number and name of feature: Day 2 Feature 4 - Saved books
+
+Estimate of time needed to complete: 2hr
+
+Start time: 9:30am
+
+Finish time: 10:30am
+
+Actual time needed to complete: 1hr
+
