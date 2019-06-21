@@ -8,6 +8,7 @@ const superagent = require('superagent');
 const pg = require('pg');
 // add our environment configuration
 require('dotenv').config();
+const methodOverride = require('method-override');
 
 //Application Setup
 const app = express();
@@ -26,23 +27,25 @@ client.on('error', error => console.error(error));
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 
+app.use(methodOverride((request, response) => {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    // look in urlencoded POST bodies and delete it
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}))
+
 // Set the view engine for server-side templating
 app.set('view engine', 'ejs');
 
 //API routes
-// Render the search form
 app.get('/search', newSearch);
 app.get('/', displayFavorites);
-
-// app.post is meant to create and mutate something
 app.post('/searches', renderSearch);
-
-//View details
 app.get('/books/:id', viewFavoritedDetails);
 app.get('/view-details', viewDetails);
-
-// Add book to Favorites
-app.post('/', addFavorites);
+app.post('/books', addFavorites);
 
 // Catch all
 app.get('*', (request, response) => response.status(404).send('This route really does not exist'));
@@ -84,7 +87,7 @@ function renderSearch (request, response){
 
   if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`}
   if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`}
-  
+
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult)))
     .then(apiResponse => response.render('pages/searches/show', {searchResults : apiResponse }))
@@ -120,6 +123,7 @@ function displayFavorites(request, response) {
 }
 
 function viewFavoritedDetails (request, response){
+  // params forms a key value pair, in the case of ID 1 id:1
   let SQL = `SELECT * FROM books WHERE id=${request.params.id};`;
 
   return client.query(SQL)
@@ -135,12 +139,18 @@ function viewDetails(request, response){
 
 function addFavorites (request, response) {
   console.log(request.body);
-  
-  let SQL = `INSERT INTO books(title, authors, isbn, description, bookshelf)`;
-  let values = ['1', '2', '3', '4', '5']
+  let {title, author, isbn, image_url, description, bookshelf} = request.body;
+  let SQL = `INSERT INTO books(title, author, isbn, image_url, description, bookshelf) VALUES  ($1, $2, $3, $4, $5, $6); `;
+  let values = [title, author, isbn, image_url, description, bookshelf];
 
   return client.query(SQL, values)
-    .then(response.redirect('/'))
+    .then(() => {
+      SQL = 'SELECT * FROM "books" WHERE isbn=$1;';
+      values = [request.body.isbn];
+      return client.query(SQL, values)
+        .then(result => response.redirect(`/books/${result.rows[0].id}`))
+        .catch(err => handleError(err, response));
+    })
     .catch(err => handleError(err, response));
 }
 
@@ -149,4 +159,8 @@ function handleError (error, response){
   console.error(error);
   response.status(500).send('ERROR');
 }
+
+// $('.select-button').on('click', function(){
+//   $(this).next().removeClass('hide-me');
+// });
 
