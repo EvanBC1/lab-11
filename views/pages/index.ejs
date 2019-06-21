@@ -6,17 +6,17 @@
       <h4>Saved Books</h4>
       
       <ul>
-        <p><%=favorite.length%> books on shelf</p>
+        <p id="books-on-shelf"><%=favorite.length%> books on shelf</p>
   
         <% favorite.forEach (bookItem => { %>
           <div class="books">
           <img src=<%=bookItem.image_url%> alt="">
           <li class="title"><%= bookItem.title %></li>
-          <li><%= bookItem.authors %></li>
+          <li class="author"><%= bookItem.authors %></li>
           <li class="description"><%= bookItem.description %></li>
   
+        </div>
         <% }) %>
-      </div>
       </ul>
   
     </main>

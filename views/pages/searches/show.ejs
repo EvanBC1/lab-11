@@ -9,15 +9,15 @@
       <li class="title"><%= searchResults[i].title %></li>
       <li><%= searchResults[i].authors %></li>
       <li class="description"><%= searchResults[i].description %></li>
-      <a href="google.com">View Details</a>
+      <!-- <a id ="view-details" href="google.com">View Details</a> -->
       <button type="submit">Select This Book</button>
 
       <form class="hide-me" id="update-form" action="/books/<%searchResults[i].id%>" method="POST">
         <input type="hidden" type="_method" method="put">
-        <input type="text" name="title" value="<%= searchResults[i].title %>" placeholder="title" required> 
-        <input type="text" name="authors" value="<%= searchResults[i].authors %>" placeholder="author" required>
-        <textarea name="description" value="<%= searchResults[i].description %>" placeholder="description" cols="30" rows="10">description</textarea requird>
-        <input type="text" name="bookshelf" value="" placeholder="bookshelf" required>
+        <input type="text" name="title" value="<%= searchResults[i].title %>" placeholder="Title" required> 
+        <input type="text" name="authors" value="<%= searchResults[i].authors %>" placeholder="Author" required>
+        <textarea class="form-description" name="description" value="<%= searchResults[i].description %>" placeholder="Description" cols="30" rows="10">Description</textarea requird>
+        <input type="text" name="bookshelf" value="" placeholder="Bookshelf" required>
         <input type="text" name="isbn" value="<%= searchResults[i].isbn %>"  placeholder="isbn" required>
         <button class="show-me" class="select-button" type="submit">Add to Favorites</button>
        </form>
