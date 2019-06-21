@@ -4,15 +4,21 @@
 <body>
     <main>
       <h4>Saved Books</h4>
+      
       <ul>
         <p><%=favorite.length%> books on shelf</p>
+  
         <% favorite.forEach (bookItem => { %>
+          <div class="books">
           <img src=<%=bookItem.image_url%> alt="">
           <li class="title"><%= bookItem.title %></li>
           <li><%= bookItem.authors %></li>
           <li class="description"><%= bookItem.description %></li>
+  
         <% }) %>
+      </div>
       </ul>
+  
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   </body>

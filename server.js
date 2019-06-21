@@ -160,7 +160,7 @@ function handleError (error, response){
   response.status(500).send('ERROR');
 }
 
-$('.select-button').on('click', function(){
-  $(this).next().removeClass('hide-me');
-});
+// $('.select-button').on('click', function(){
+//   $(this).next().removeClass('hide-me');
+// });
 
