@@ -1,22 +1,25 @@
 <%- include('../layout/head') %>
 <body>
-    <main>
+    <main id="search-main">
+      <header>
+        <h1 class="indent"> Best Books!</h1>
+      </header>
       <h4>Search by Title or Author</h4>
       <form action="/searches" method="post">
-        <input type="text" name="search" placeholder="Enter a title or author" value="seattle" required>
-        <fieldset>
+        <input  id="searchBox" type="text" name="search" placeholder="Enter a title or author" value="seattle" required>
+        <fieldset class="radioButton">
           <label for="title">
-            <span>Title</span>
-            <input type="radio" name="search" value="title" checked="checked" required>
+            <span class="indent">Title</span>
+            <input class="indent" type="radio" name="search" value="title" checked="checked" required>
           </label>
         </fieldset>
-        <fieldset>
+        <fieldset class="radioButton">
           <label for="author">
-            <span>Author</span>
-            <input type="radio" name="search" value="author" required>
+            <span class="indent">Author</span>
+            <input  type="radio" name="search" value="author" required>
           </label>
         </fieldset>
-        <button type="submit">Search the Google Books API</button>
+        <button id="submitSearch" type="submit">Search the Google Books API</button>
       </form>
     </main>
   </body>
