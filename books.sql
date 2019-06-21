@@ -6,12 +6,6 @@ CREATE TABLE books (
   authors VARCHAR(255),
   isbn VARCHAR(255),
   image_url VARCHAR(255),
-  description VARCHAR(255),
+  description VARCHAR(2047),
   bookshelf VARCHAR(255)
 );
-
-INSERT INTO books (title, authors, isbn, image_url, description, bookshelf)
-VALUES('Lord of the wings', 'GRR Tolken', '12345', 'https://i.imgur.com/J5LVHEL.jpg', 'Harry potter must throw the one ring at the night king', 'something stupid');
-
-INSERT INTO books (title, authors, isbn, image_url, description, bookshelf)
-VALUES('game of bones', 'something martin', '12345', 'https://i.imgur.com/J5LVHEL.jpg', 'gotta find the bone king', 'aaa');

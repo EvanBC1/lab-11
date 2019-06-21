@@ -5,18 +5,19 @@
   <ul>
     <% for (let i = 0; i < 10; i++){ %>
     <div class="books">
-      <img id=<%=`bookImages-${i}`%> src=<%=searchResults[i].image%> alt="">
+      <img id=<%=`bookImages-${i}`%> src=<%=searchResults[i].image_url%> alt="">
       <li class="title"><%= searchResults[i].title %></li>
       <li><%= searchResults[i].authors %></li>
       <li class="description"><%= searchResults[i].description %></li>
       <!-- <a id ="view-details" href="google.com">View Details</a> -->
       <button type="submit">Select This Book</button>
 
-      <form class="hide-me" id="update-form" action="/books/<%searchResults[i].id%>" method="POST">
-        <input type="hidden" type="_method" method="put">
+      <form class="hide-me" id="update-form" action="/books/" method="POST">
+        <!-- <input type="hidden" type="_method" method="put"> -->
+        <input type="text" name="image_url" value="<%= searchResults[i].image_url %>"> 
         <input type="text" name="title" value="<%= searchResults[i].title %>" placeholder="Title" required> 
         <input type="text" name="authors" value="<%= searchResults[i].authors %>" placeholder="Author" required>
-        <textarea class="form-description" name="description" value="<%= searchResults[i].description %>" placeholder="Description" cols="30" rows="10">Description</textarea requird>
+        <textarea class="form-description" name="description" value="<%= searchResults[i].description %>" placeholder="Description" cols="30" rows="10"><%= searchResults[i].description %></textarea requird>
         <input type="text" name="bookshelf" value="" placeholder="Bookshelf" required>
         <input type="text" name="isbn" value="<%= searchResults[i].isbn %>"  placeholder="isbn" required>
         <button class="show-me" class="select-button" type="submit">Add to Favorites</button>
